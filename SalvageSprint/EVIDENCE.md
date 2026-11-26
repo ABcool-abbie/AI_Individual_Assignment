@@ -11,9 +11,16 @@ Current stage and anything unfinished:
 
 Three observations the rival needs, including one it might not have:
 
+A: 
+- Its own position (start point) to know where the rival is starting from
+- The target's position (end point) to know where to go.
+- A vaild path (reachable or not) from start point to end point.
+
 Seeing a pickup across a gap proves / does not prove reachability because:
+A: Seeing a pickup across a gap does not prove reachability /  It does not prove a walkable NavMesh path exists, there could be some obstacles (eg. closed door/ cliff / invisible wall) in the NavMesh Surface between the two points.
 
 One question about NPC behaviour:
+In 007 First Light / Hitman, When a guard spots the player doing something suspicious (a question mark slider appears above his head) and the player break line of sight, he searches the player's last known position and player need to wait for a long time before the question-mark slider decays to zero and disappears and the guard later goes back to his routine. How does the search behave in 3D areas (with rooftops etc / different NavMesh layers)?
 
 ## One complete trace
 
