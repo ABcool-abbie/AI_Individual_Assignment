@@ -4,7 +4,7 @@ namespace SalvageSprint.Core
     // and respond to the navigation-failure flag supplied by the brain.
     public static class DecisionPolicy
     {
-        public const string Label = "Part 1 reference: known, committed, recoverable";
+        public const string Label = "Abbie W1";
 
         private static bool IsEligible(Candidate candidate)
         {
@@ -60,8 +60,8 @@ namespace SalvageSprint.Core
                     "No eligible known pickup: visit the next survey point");
 
             string reason = facts.RetainedTarget
-                ? "Retain current eligible target"
-                : "Nearest eligible known pickup";
+                ? $"Retain current eligible target {facts.SelectedTargetId}"
+                : $"Nearest eligible scrap {facts.SelectedTargetId} known pickup";
 
             return new Decision(TaskKind.Collect, facts.SelectedTargetId, reason);
         }
