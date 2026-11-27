@@ -4,8 +4,8 @@ Keep this short. Bullet points, a small table and one diagram or code trace are 
 
 Name: Mei Koo
 Exact Unity version: 6000.3.26f1
-Checkpoint commit / repository: 13dd1730f7566faa74fbc1d40df4805f60c7e876
-Current stage and anything unfinished: Stage 04
+Checkpoint commit / repository: 0afd6ba4e05f792802e4a33ab401f68aebf3e134
+Current stage and anything unfinished: Stage 05
 
 ## Initial prediction
 
@@ -49,12 +49,12 @@ Situation (Stage 2): 03_Occlusion / Rule: candidate.Available && (candidate.Visi
 
 | Scenario | Predicted result | Observed result and short evidence / remaining issue |
 |---|---|---|
-| Normal loop and restart | | |
-| Carrying cargo | | |
+| Normal loop and restart (F2) | find the nearest scrap and collect back to depot and continue / Press R to restart |  Collect target: scrap 11 → Deliver "return to depot with "Cargo: True" → RIVAL score 1/5 → Collect target: scrap 10 |
+| Carrying cargo (F3) | Deliver to depot first before pursuing another scrap | Deliver with Target: -1, Cargo: True / Reason: "Cargo held: return to depot" → back to depot → Collect taget: scrap 10|
 | Hidden / remembered pickup (F4) | Rival will ignore the nearer hidden scrap | Went to farther visible scrap + Visible 1 + Visible turn to 2 when rival can spot the hidden one on the way to collect the visible scrap |
 | Target taken (F5) | Change to another target | Before: Collect target 0 ("Retain current eligible target 0"), Requests 1 / After the steal: Explore, target -1 ("No eligible known pickup: visit the next survey point"), Requests 2. Later: change to another target |
 | Unreachable target (F6) | Fail to collect the unreachable target and switch to another target | Targeted scrap 0 ("Nearest eligible scrap 0…") → Travel Failed, "Route failed for pickup 0; ignore for 6 seconds" → switched to scrap 1 ("Retain current eligible target 1"), Moving. Tried scrap 0 again after 6s and failed. |
-| No usable pickup | | |
+| No usable pickup (F7)  | Explore the whole NavMesh Surface | Task: Explore, Target: -1, Reason: "No eligible known pickup: visit the next survey point" → so moves between survey points instead of the whole NavMesh Surface (my prediction was wrong) |
 
 Supplied test result, with any added tests identified:
 Live walkthrough checked by / recording link if used:
@@ -62,8 +62,18 @@ Live walkthrough checked by / recording link if used:
 ## One correction and one independent check
 
 The original weakness and why it happened:
+Without the retention loop, Infer searches for the nearest eligible scrap again every decision (every 0.15 s), so a closer scrap can steal the target mid-route. I removed the loop to check: 2 fail(including Stage3_UsableCurrentTargetSurvivesCloserDistraction.) In all sences, it seems normal + the rival didn't visibly switch targets. The Reason line showed "Nearest eligible…" every time, never "Retain…".
+
 What I changed and why it addresses the cause:
+
+
+
 My counterexample or experiment: prediction, observed result, and one limitation:
+A: 
+Experiment: rival stopping distance 0.6 → 1.6 → 1.7 (collection radius 1.1)
+Prediction: the rival would report Arrived while still too far to collect in both cases (1.6/1.7)
+Observed result: at 1.6 it still collected (didn't match my prediction). At 1.7 it stopped in front of the target scrap and the scrap was not collected.
+Limitation: the exact limit of stopping distance depends on speed + acceleration + approach angle /  stopping distance is where the agent starts braking and will slide a little far away instead of exact value (in this case 1.6).
 
 ## Collaboration and help
 
