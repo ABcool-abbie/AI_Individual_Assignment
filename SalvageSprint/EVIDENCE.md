@@ -4,7 +4,7 @@ Keep this short. Bullet points, a small table and one diagram or code trace are 
 
 Name: Mei Koo
 Exact Unity version: 6000.3.26f1
-Checkpoint commit / repository: 4e192ee31dd089d5d44d6fbcf528a8884806248b
+Checkpoint commit / repository: c7017f140081eebc2bf8af755c6ab7d3dea43296
 Current stage and anything unfinished: Stage 01
 
 ## Initial prediction
@@ -25,7 +25,7 @@ A: In 007 First Light / Hitman, When a guard spots the player doing something su
 
 Use one actual situation. Include the observation data, derived facts, selected task and reason, movement request/result, and how feedback affects a later decision. Identify the responsible code locations. A tiny state diagram can accompany this trace.
 
-Situation: 01_Normal, rival walking to scrap 11
+Situation (Stage 1): 01_Normal, rival walking to scrap 11
 
 | Step          | Code                                   | Debug Panel                          |
 |---------------|----------------------------------------|-------------------------------------|
@@ -37,13 +37,22 @@ Situation: 01_Normal, rival walking to scrap 11
 | Game result   | MatchController                        | Cargo: True (scrap collected)       |
 | Next decision | DecisionPolicy.Choose                  | Task: Deliver, Reason: "Cargo held: return to depot", Requests: 1 → 2         |
 
+Situation (Stage 2): 03_Occlusion / Rule: candidate.Available && (candidate.Visible || candidate.Remembered)
+| Step        | Code                  | Debug Panel                                        |
+|-------------|-----------------------|----------------------------------------------------|
+| Observation | PickupSensor.Capture  | Visible: 1    |
+| Decision    | DecisionPolicy.Choose | Task: Collect, Reason: "Retain current eligible target 1" |
+| Result      | —                     | Rival ignored the nearer hidden scrap and went to scrap 1 |
+| Later       | PickupSensor.Capture  | Visible: 1 → 2 when the rival can spot the hidden one              |
+
+
 ## Scenario record
 
 | Scenario | Predicted result | Observed result and short evidence / remaining issue |
 |---|---|---|
 | Normal loop and restart | | |
 | Carrying cargo | | |
-| Hidden / remembered pickup | | |
+| Hidden / remembered pickup (F4) | Rival will ignore the nearer hidden scrap | Went to farther visible scrap + Visible 1 + Visible turn to 2 when rival can spot the hidden one on the way to collect the visible scrap |
 | Target taken | | |
 | Unreachable target | | |
 | No usable pickup | | |
