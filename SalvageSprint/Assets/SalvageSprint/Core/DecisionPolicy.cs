@@ -22,6 +22,13 @@ namespace SalvageSprint.Core
 
             // First look for the existing target. Match its ID, not its
             // array position. It can occur anywhere in the candidate list.
+            // Keep the current target if it is still eligible
+            foreach (Candidate candidate in observation.Candidates)
+            {
+                if (candidate.Id == observation.CurrentTargetId
+                    && IsEligible(candidate))
+                    return new AgentFacts(false, candidate.Id, true);
+            }
 
             // If the old task is no longer useful, find a new eligible target.
             // This compares horizontal straight-line distance, not path length.

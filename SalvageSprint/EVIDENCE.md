@@ -62,11 +62,13 @@ Live walkthrough checked by / recording link if used:
 ## One correction and one independent check
 
 The original weakness and why it happened:
+A:
 Without the retention loop, Infer searches for the nearest eligible scrap again every decision (every 0.15 s), so a closer scrap can steal the target mid-route. I removed the loop to check: 2 fail(including Stage3_UsableCurrentTargetSurvivesCloserDistraction.) In all sences, it seems normal + the rival didn't visibly switch targets. The Reason line showed "Nearest eligible…" every time, never "Retain…".
 
 What I changed and why it addresses the cause:
-
-
+A:
+Add the retention loop even it looks normal without it in game. Before searching for the nearest scrap, Infer now looks for the current target by Id and keeps it if it is still eligible. So a closer scrap can't steal a
+target that is still useful, even though the scenes didn't happen to show a switch. All tests pass.
 
 My counterexample or experiment: prediction, observed result, and one limitation:
 A: 
