@@ -4,7 +4,7 @@ Keep this short. Bullet points, a small table and one diagram or code trace are 
 
 Name: Mei Koo
 Exact Unity version: 6000.3.26f1
-Checkpoint commit / repository: 0afd6ba4e05f792802e4a33ab401f68aebf3e134
+Checkpoint commit / repository: https://github.com/ABcool-abbie/AI_Individual_Assignment
 Current stage and anything unfinished: Stage 05
 
 ## Initial prediction
