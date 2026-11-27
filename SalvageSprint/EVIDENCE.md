@@ -5,7 +5,7 @@ Keep this short. Bullet points, a small table and one diagram or code trace are 
 Name: Mei Koo
 Exact Unity version: 6000.3.26f1
 Checkpoint commit / repository: c7017f140081eebc2bf8af755c6ab7d3dea43296
-Current stage and anything unfinished: Stage 01
+Current stage and anything unfinished: Stage 03
 
 ## Initial prediction
 
@@ -53,7 +53,7 @@ Situation (Stage 2): 03_Occlusion / Rule: candidate.Available && (candidate.Visi
 | Normal loop and restart | | |
 | Carrying cargo | | |
 | Hidden / remembered pickup (F4) | Rival will ignore the nearer hidden scrap | Went to farther visible scrap + Visible 1 + Visible turn to 2 when rival can spot the hidden one on the way to collect the visible scrap |
-| Target taken | | |
+| Target taken (F5) | change to another target | Before: Collect target 0 ("Retain current eligible target 0"), Requests 1 / After the steal: Explore, target -1 ("No eligible known pickup: visit the next survey point"), Requests 2. Later: change to another target |
 | Unreachable target | | |
 | No usable pickup | | |
 
