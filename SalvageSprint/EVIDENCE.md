@@ -4,8 +4,8 @@ Keep this short. Bullet points, a small table and one diagram or code trace are 
 
 Name: Mei Koo
 Exact Unity version: 6000.3.26f1
-Checkpoint commit / repository: c7017f140081eebc2bf8af755c6ab7d3dea43296
-Current stage and anything unfinished: Stage 03
+Checkpoint commit / repository: 13dd1730f7566faa74fbc1d40df4805f60c7e876
+Current stage and anything unfinished: Stage 04
 
 ## Initial prediction
 
@@ -45,7 +45,6 @@ Situation (Stage 2): 03_Occlusion / Rule: candidate.Available && (candidate.Visi
 | Result      | —                     | Rival ignored the nearer hidden scrap and went to scrap 1 |
 | Later       | PickupSensor.Capture  | Visible: 1 → 2 when the rival can spot the hidden one              |
 
-
 ## Scenario record
 
 | Scenario | Predicted result | Observed result and short evidence / remaining issue |
@@ -53,8 +52,8 @@ Situation (Stage 2): 03_Occlusion / Rule: candidate.Available && (candidate.Visi
 | Normal loop and restart | | |
 | Carrying cargo | | |
 | Hidden / remembered pickup (F4) | Rival will ignore the nearer hidden scrap | Went to farther visible scrap + Visible 1 + Visible turn to 2 when rival can spot the hidden one on the way to collect the visible scrap |
-| Target taken (F5) | change to another target | Before: Collect target 0 ("Retain current eligible target 0"), Requests 1 / After the steal: Explore, target -1 ("No eligible known pickup: visit the next survey point"), Requests 2. Later: change to another target |
-| Unreachable target | | |
+| Target taken (F5) | Change to another target | Before: Collect target 0 ("Retain current eligible target 0"), Requests 1 / After the steal: Explore, target -1 ("No eligible known pickup: visit the next survey point"), Requests 2. Later: change to another target |
+| Unreachable target (F6) | Fail to collect the unreachable target and switch to another target | Targeted scrap 0 ("Nearest eligible scrap 0…") → Travel Failed, "Route failed for pickup 0; ignore for 6 seconds" → switched to scrap 1 ("Retain current eligible target 1"), Moving. Tried scrap 0 again after 6s and failed. |
 | No usable pickup | | |
 
 Supplied test result, with any added tests identified:
